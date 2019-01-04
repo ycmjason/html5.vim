@@ -54,6 +54,12 @@ endif
 " Allow for line continuation below.
 let s:cpo_save = &cpo
 set cpo-=C
+
+" Option for enabling custom tag without hyphen
+let s:custom_tag_requires_hyphen = 1
+if exists("g:html5_custom_tag_requires_hyphen")
+  let s:custom_tag_requires_hyphen = g:html5_custom_tag_requires_hyphen
+endif
 "}}}
 
 " Check and process settings from b:html_indent and g:html_indent... variables.
@@ -367,6 +373,9 @@ func! s:CheckCustomTag(ctag)
   " Returns 1 if ctag is the tag for a custom element, 0 otherwise.
   " a:ctag can be "tag" or "/tag" or "<!--" or "-->"
   let pattern = '\%\(\w\+-\)\+\w\+'
+  if !s:custom_tag_requires_hyphen
+    let pattern = '\%\(\w\|-\)\+'
+  endif
   if match(a:ctag, pattern) == -1
     return 0
   endif

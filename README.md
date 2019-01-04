@@ -43,6 +43,10 @@ Disable WAI-ARIA attribute support:
 
     let g:html5_aria_attributes_complete = 0
 
+Indent custom tags even without hyphens:
+
+    let g:html5_custom_tag_requires_hyphen = 0
+
 ## Change Log
 
 ### Version 0.27
